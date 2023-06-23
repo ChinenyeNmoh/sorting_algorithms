@@ -9,45 +9,27 @@
  */
 void merge(int *array, int *output, size_t low, size_t mid, size_t high)
 {
-	size_t i, j, k;
-
-	i = low;
-	j = mid + 1;
-	k = low;
+	size_t i, j, k = 0;
 
 	printf("Merging...\n[left]: ");
-	print_array(array + low, mid - low + 1);
+	print_array(array + low, mid - low);
+
 	printf("[right]: ");
-	print_array(array + mid + 1, high - mid);
-	while (i <= mid && j <= high)
-	{
-		if (array[i] < array[j])
-		{
-			output[k] = array[i];
-			i++;
-		}
-		else
-		{
-			output[k] = array[j];
-			j++;
-		}
-		k++;
-	}
-	while (i <= mid)
-	{
-		output[k] = array[i], i++, k++;
-	}
-	while (j <= high)
-	{
-		output[k] = array[j], j++, k++;
-	}
-	for (i = low, k = low; i <= high; i++)
-	{
+	print_array(array + mid, high - mid);
+
+	for (i = low, j = mid; i < mid && j < high; k++)
+		output[k] = (array[i] < array[j]) ? array[i++] : array[j++];
+	for (; i < mid; i++)
+		output[k++] = array[i];
+	for (; j < high; j++)
+		output[k++] = array[j];
+	for (i = low, k = 0; i < high; i++)
 		array[i] = output[k++];
-	}
+
 	printf("[Done]: ");
-	print_array(array + low, high - low + 1);
+	print_array(array + low, high - low);
 }
+
 /**
  *mergesort - function that sorts an array of integers
  *in ascending order using the Merge sort algorithm
@@ -60,15 +42,14 @@ void merge(int *array, int *output, size_t low, size_t mid, size_t high)
  */
 void mergesort(int *array, int *output, int low, int high)
 {
-	int mid;
+	size_t mid;
 
-	mid = low + (high - low) / 2;
-
-	if (low < high)
+	if (high - low > 1)
 	{
-	mergesort(array, output, low, mid);
-	mergesort(array, output, mid + 1, high);
-	merge(array, output, low, mid, high);
+		mid = low + (high - low) / 2;
+		mergesort(array, output, low, mid);
+		mergesort(array, output, mid, high);
+		merge(array, output, low, mid, high);
 	}
 }
 
@@ -91,7 +72,7 @@ void merge_sort(int *array, size_t size)
 	if (newarray == NULL)
 		return;
 
-	mergesort(array, newarray, 0, size - 1);
+	mergesort(array, newarray, 0, size);
 
 	free(newarray);
 }

@@ -62,7 +62,7 @@ void mergesort(int *array, int *output, int low, int high)
 {
 	int mid;
 
-	mid = (low + high) / 2;
+	mid = low + (high - low) / 2;
 
 	if (low < high)
 	{

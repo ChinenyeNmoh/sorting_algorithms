@@ -19,9 +19,9 @@ void maxheapify(int *array, int size, int base, int i)
 		largest = right;
 	if (largest != i)
 	{
-		temp = array[largest];
-		array[largest] = array[i];
-		array[i] = temp;
+		temp = array[i];
+		array[i] = array[largest];
+		array[largest] = temp;
 		print_array(array, size);
 		maxheapify(array, size, base, largest);
 	}
@@ -41,7 +41,7 @@ void heap_sort(int *array, size_t size)
 	for (i = (size / 2) - 1; i >= 0; i--)
 		maxheapify(array, size, size, i);
 
-	for (i = size - 1; i >= 0; i--)
+	for (i = size - 1; i > 0; i--)
 	{
 		temp = array[0];
 		array[0] = array[i];

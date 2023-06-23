@@ -41,9 +41,9 @@ void merge(int *array, int *output, size_t low, size_t mid, size_t high)
 	{
 		output[k] = array[j], j++, k++;
 	}
-	for (i = low; i <= high; i++)
+	for (i = low, k = low; i <= high; i++)
 	{
-		array[i] = output[i];
+		array[i] = output[k++];
 	}
 	printf("[Done]: ");
 	print_array(array + low, high - low + 1);

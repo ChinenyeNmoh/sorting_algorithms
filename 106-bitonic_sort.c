@@ -2,6 +2,7 @@
 /**
  * merge - sort bitonic sequences recursively in both orders
  * @array: array
+ * @size: size of the array
  * @low: first element
  * @n: The size of the sequence to sort.
  * @direction: The direction to sort in.
